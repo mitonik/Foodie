@@ -15,14 +15,17 @@ import androidx.compose.material.icons.outlined.Settings
 import androidx.compose.material3.*
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.Modifier
+import androidx.compose.ui.graphics.Shape
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
 import com.example.foodie.ui.theme.FoodieTheme
+import com.example.foodie.ui.theme.Shapes
 
 class MainActivity : ComponentActivity() {
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContent {
+            // ui
             FoodieTheme {
                 Surface(color = MaterialTheme.colorScheme.surface) {
                     Column(
@@ -34,10 +37,12 @@ class MainActivity : ComponentActivity() {
                             contentDescription = null
                         ) }, onClick = { /*TODO*/ })
                         NavigationBarPreview()
+                        /*TODO: ui.(function name)*/
                     }
                 }
-
             }
+
+
         }
     }
 }
@@ -52,18 +57,21 @@ fun NavigationBarPreview() {
                 contentDescription = null
             )
         }, label = { Text(text = "Recipes") })
+
         NavigationBarItem(selected = false, onClick = { /*TODO*/ }, icon = {
             Icon(
                 Icons.Outlined.FavoriteBorder,
                 contentDescription = null
             )
         }, label = { Text(text = "Favourites") })
+
         NavigationBarItem(selected = false, onClick = { /*TODO*/ }, icon = {
             Icon(
                 Icons.Outlined.Settings,
                 contentDescription = null
             )
         }, label = { Text(text = "Settings") })
+
     }
 }
 
