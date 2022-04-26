@@ -13,31 +13,53 @@ import androidx.compose.runtime.Composable
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.tooling.preview.Preview
+import androidx.navigation.NavController
 import com.example.foodie.ui.theme.FoodieTheme
 
 @Composable
-fun FoodieNavigationBar(modifier: Modifier = Modifier) {
+fun FoodieNavigationBar(navController: NavController, modifier: Modifier = Modifier) {
     NavigationBar {
-        NavigationBarItem(selected = true, onClick = { /*TODO*/ }, icon = {
-            Icon(
-                Icons.Filled.List,
-                contentDescription = null
-            )
-        }, label = { Text(text = stringResource(R.string.recipes)) })
+        NavigationBarItem(
+            selected = true,
+            onClick = {
+                navController.popBackStack()
+                navController.navigate(Screen.RecipeScreen.route)
+            },
+            icon = {
+                Icon(
+                    Icons.Filled.List,
+                    contentDescription = null
+                )
+            },
+            label = { Text(text = stringResource(R.string.recipes)) })
 
-        NavigationBarItem(selected = false, onClick = { /*TODO*/ }, icon = {
-            Icon(
-                Icons.Outlined.FavoriteBorder,
-                contentDescription = null
-            )
-        }, label = { Text(text = stringResource(R.string.favourites)) })
+        NavigationBarItem(
+            selected = false,
+            onClick = {
+                navController.popBackStack()
+                navController.navigate(Screen.FavouriteScreen.route)
+            },
+            icon = {
+                Icon(
+                    Icons.Outlined.FavoriteBorder,
+                    contentDescription = null
+                )
+            },
+            label = { Text(text = stringResource(R.string.favourites)) })
 
-        NavigationBarItem(selected = false, onClick = { /*TODO*/ }, icon = {
-            Icon(
-                Icons.Outlined.Settings,
-                contentDescription = null
-            )
-        }, label = { Text(text = stringResource(R.string.settings)) })
+        NavigationBarItem(
+            selected = false,
+            onClick = {
+                navController.popBackStack()
+                navController.navigate(Screen.SettingsScreen.route)
+            },
+            icon = {
+                Icon(
+                    Icons.Outlined.Settings,
+                    contentDescription = null
+                )
+            },
+            label = { Text(text = stringResource(R.string.settings)) })
     }
 }
 
@@ -47,6 +69,5 @@ fun FoodieNavigationBar(modifier: Modifier = Modifier) {
 @Composable
 fun FoodieNavigationBarPreview() {
     FoodieTheme {
-        FoodieNavigationBar()
     }
 }
