@@ -1,0 +1,7 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <string name="recipes">Przepisy</string>
+    <string name="favourites">Ulubione</string>
+    <string name="settings">Ustawienia</string>
+    <string name="add">Dodaj</string>
+</resources>
