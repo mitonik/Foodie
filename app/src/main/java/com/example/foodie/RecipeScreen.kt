@@ -1,5 +1,6 @@
 package com.example.foodie
 
+import android.annotation.SuppressLint
 import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.PaddingValues
 import androidx.compose.foundation.lazy.grid.GridCells
@@ -10,6 +11,7 @@ import androidx.compose.runtime.Composable
 import androidx.compose.ui.res.painterResource
 import androidx.compose.ui.unit.dp
 
+@SuppressLint("UnusedMaterial3ScaffoldPaddingParameter")
 @OptIn(ExperimentalMaterial3Api::class)
 @Composable
 fun RecipeScreen() {
@@ -28,22 +30,22 @@ fun RecipeScreen() {
         "Food Item",
         "Food Item"
     )
-        Scaffold(floatingActionButton = {
-            AddButton()
-        }) {
-            LazyVerticalGrid(
-                columns = GridCells.Fixed(2),
-                contentPadding = PaddingValues(10.dp),
-                verticalArrangement = Arrangement.spacedBy(10.dp),
-                horizontalArrangement = Arrangement.spacedBy(10.dp)
-            ) {
-                items(list.size) { index ->
-                    FoodieItem(
-                        painter = painterResource(id = R.drawable.ic_launcher_background),
-                        contentDescription = list[index],
-                        text = list[index]
-                    )
-                }
+    Scaffold(floatingActionButton = {
+        AddButton()
+    }) {
+        LazyVerticalGrid(
+            columns = GridCells.Fixed(2),
+            contentPadding = PaddingValues(10.dp),
+            verticalArrangement = Arrangement.spacedBy(10.dp),
+            horizontalArrangement = Arrangement.spacedBy(10.dp)
+        ) {
+            items(list.size) { index ->
+                FoodieItem(
+                    painter = painterResource(id = R.drawable.ic_launcher_background),
+                    contentDescription = list[index],
+                    text = list[index]
+                )
             }
         }
+    }
 }
