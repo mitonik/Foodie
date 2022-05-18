@@ -1,10 +1,10 @@
 package com.example.foodie.data
 
 import androidx.annotation.WorkerThread
-import kotlinx.coroutines.flow.Flow
+import androidx.lifecycle.LiveData
 
 class RecipesRepository(private val recipesDao: RecipesDao) {
-    val allRecipes: Flow<List<Recipes>> = recipesDao.getRecipes()
+    val allRecipes: LiveData<List<Recipes>> = recipesDao.getRecipes()
 
     @Suppress("RedundantSuspendModifier")
     @WorkerThread

@@ -1,10 +1,13 @@
 package com.example.foodie.data
 
-import androidx.lifecycle.*
+import androidx.lifecycle.LiveData
+import androidx.lifecycle.ViewModel
+import androidx.lifecycle.ViewModelProvider
+import androidx.lifecycle.viewModelScope
 import kotlinx.coroutines.launch
 
 class RecipesViewModel(private val repository: RecipesRepository): ViewModel() {
-    val allRecipes: LiveData<List<Recipes>> = repository.allRecipes.asLiveData()
+    val allRecipes: LiveData<List<Recipes>> = repository.allRecipes
 
     fun insert(name: Recipes) = viewModelScope.launch {
         repository.insert(name)
