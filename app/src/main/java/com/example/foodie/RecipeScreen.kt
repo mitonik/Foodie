@@ -13,17 +13,18 @@ import androidx.compose.runtime.Composable
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
+import androidx.navigation.NavController
 import com.example.foodie.data.Recipes
 
 @OptIn(ExperimentalMaterial3Api::class)
 @Composable
 fun RecipeScreen(
-    click: () -> Unit,
+    navController: NavController,
     list: List<Recipes>,
     modifier: Modifier = Modifier
 ) {
     Scaffold(floatingActionButton = {
-        AddButton(click)
+        AddButton { navController.navigate("details_screen") }
     }) {
         Surface(modifier = Modifier.padding(it)) {
             LazyVerticalGrid(
@@ -44,13 +45,4 @@ fun RecipeScreen(
 @Preview
 @Composable
 fun RecipeScreenPreview() {
-    RecipeScreen(
-        {},
-        listOf(
-            Recipes(0, "Cakeasdkajshdkjahskjdhakjhsdjdshakjhsa"),
-            Recipes(0, "Steak"),
-            Recipes(0, "Fries"),
-            Recipes(0, "Fish")
-        )
-    )
 }

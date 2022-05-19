@@ -3,7 +3,6 @@ package com.example.foodie
 import android.os.Bundle
 import androidx.activity.ComponentActivity
 import androidx.activity.compose.setContent
-import androidx.compose.foundation.layout.fillMaxSize
 import androidx.compose.foundation.layout.padding
 import androidx.compose.material3.ExperimentalMaterial3Api
 import androidx.compose.material3.Scaffold
@@ -17,7 +16,6 @@ import com.example.foodie.data.Recipes
 import com.example.foodie.data.RecipesRepository
 import com.example.foodie.data.RecipesRoomDatabase
 import com.example.foodie.ui.theme.FoodieTheme
-import kotlinx.coroutines.runBlocking
 
 class MainActivity : ComponentActivity() {
     @OptIn(ExperimentalMaterial3Api::class)
@@ -44,22 +42,16 @@ class MainActivity : ComponentActivity() {
                         Modifier.padding(it)
                     ) {
                         composable(route = Screen.RecipeScreen.route) {
-                            RecipeScreen({
-                                runBlocking {
-                                    repository.insert(
-                                        Recipes(
-                                            0,
-                                            "The Cake Is A Lie"
-                                        )
-                                    )
-                                }
-                            }, list, Modifier.fillMaxSize())
+                            RecipeScreen(navController, list)
                         }
                         composable(route = Screen.FavouriteScreen.route) {
                             FavouriteScreen()
                         }
                         composable(route = Screen.SettingsScreen.route) {
                             SettingsScreen()
+                        }
+                        composable(Screen.DetailsScreen.route) {
+                            DetailsScreen()
                         }
                     }
                 }
