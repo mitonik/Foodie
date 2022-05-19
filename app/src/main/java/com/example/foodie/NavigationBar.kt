@@ -9,15 +9,16 @@ import androidx.compose.material3.NavigationBar
 import androidx.compose.material3.NavigationBarItem
 import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
-import androidx.compose.ui.Modifier
 import androidx.compose.ui.res.stringResource
 import androidx.navigation.NavController
+import androidx.navigation.compose.currentBackStackEntryAsState
 
 @Composable
-fun FoodieNavigationBar(navController: NavController, modifier: Modifier = Modifier) {
+fun FoodieNavigationBar(navController: NavController) {
     NavigationBar {
+        val currentRoute = navController.currentBackStackEntryAsState().value?.destination?.route
         NavigationBarItem(
-            selected = true,
+            selected = currentRoute == Screen.RecipeScreen.route,
             onClick = {
                 navController.popBackStack()
                 navController.navigate(Screen.RecipeScreen.route)
@@ -31,7 +32,7 @@ fun FoodieNavigationBar(navController: NavController, modifier: Modifier = Modif
             label = { Text(text = stringResource(R.string.recipes)) })
 
         NavigationBarItem(
-            selected = false,
+            selected = currentRoute == Screen.FavouriteScreen.route,
             onClick = {
                 navController.popBackStack()
                 navController.navigate(Screen.FavouriteScreen.route)
@@ -45,7 +46,7 @@ fun FoodieNavigationBar(navController: NavController, modifier: Modifier = Modif
             label = { Text(text = stringResource(R.string.favourites)) })
 
         NavigationBarItem(
-            selected = false,
+            selected = currentRoute == Screen.SettingsScreen.route,
             onClick = {
                 navController.popBackStack()
                 navController.navigate(Screen.SettingsScreen.route)
