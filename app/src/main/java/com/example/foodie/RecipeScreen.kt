@@ -15,6 +15,7 @@ import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.unit.dp
 import androidx.navigation.NavController
 import com.example.foodie.data.Recipes
+import com.example.foodie.ui.theme.Shapes
 
 @OptIn(ExperimentalMaterial3Api::class)
 @Composable
@@ -25,7 +26,8 @@ fun RecipeScreen(navController: NavController, list: List<Recipes>) {
             icon = { Icon(Icons.Default.Add, contentDescription = null) },
             onClick = {
                 navController.navigate(Screen.DetailsScreen.route)
-            }
+            },
+            shape = Shapes.medium
         )
     }) {
         Surface(modifier = Modifier.padding(it)) {
