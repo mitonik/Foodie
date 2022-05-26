@@ -1,8 +1,11 @@
 package com.example.foodie
 
 import androidx.compose.material.icons.Icons
+import androidx.compose.material.icons.filled.FavoriteBorder
 import androidx.compose.material.icons.filled.List
-import androidx.compose.material.icons.outlined.FavoriteBorder
+import androidx.compose.material.icons.filled.Settings
+import androidx.compose.material.icons.outlined.Favorite
+import androidx.compose.material.icons.outlined.List
 import androidx.compose.material.icons.outlined.Settings
 import androidx.compose.material3.Icon
 import androidx.compose.material3.NavigationBar
@@ -24,10 +27,17 @@ fun FoodieNavigationBar(navController: NavController) {
                 navController.navigate(Screen.RecipeScreen.route)
             },
             icon = {
-                Icon(
-                    Icons.Filled.List,
-                    contentDescription = null
-                )
+                if (currentRoute == Screen.RecipeScreen.route) {
+                    Icon(
+                        Icons.Filled.List,
+                        contentDescription = null
+                    )
+                } else {
+                    Icon(
+                        Icons.Outlined.List,
+                        contentDescription = null
+                    )
+                }
             },
             label = { Text(text = stringResource(R.string.recipes)) })
 
@@ -38,10 +48,17 @@ fun FoodieNavigationBar(navController: NavController) {
                 navController.navigate(Screen.FavouriteScreen.route)
             },
             icon = {
-                Icon(
-                    Icons.Outlined.FavoriteBorder,
-                    contentDescription = null
-                )
+                if (currentRoute == Screen.FavouriteScreen.route) {
+                    Icon(
+                        Icons.Outlined.Favorite,
+                        contentDescription = null
+                    )
+                } else {
+                    Icon(
+                        Icons.Filled.FavoriteBorder,
+                        contentDescription = null
+                    )
+                }
             },
             label = { Text(text = stringResource(R.string.favourites)) })
 
@@ -52,10 +69,17 @@ fun FoodieNavigationBar(navController: NavController) {
                 navController.navigate(Screen.SettingsScreen.route)
             },
             icon = {
-                Icon(
-                    Icons.Outlined.Settings,
-                    contentDescription = null
-                )
+                if (currentRoute == Screen.SettingsScreen.route) {
+                    Icon(
+                        Icons.Filled.Settings,
+                        contentDescription = null
+                    )
+                } else {
+                    Icon(
+                        Icons.Outlined.Settings,
+                        contentDescription = null
+                    )
+                }
             },
             label = { Text(text = stringResource(R.string.settings)) })
     }
