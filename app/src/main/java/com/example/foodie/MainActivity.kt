@@ -45,7 +45,7 @@ class MainActivity : ComponentActivity() {
                             RecipeScreen(navController, list)
                         }
                         composable(route = Screen.FavouriteScreen.route) {
-                            FavouriteScreen()
+                            FavouriteScreen(list)
                         }
                         composable(route = Screen.SettingsScreen.route) {
                             SettingsScreen()
