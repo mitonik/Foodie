@@ -24,9 +24,7 @@ fun RecipeScreen(navController: NavController, list: List<Recipes>) {
         ExtendedFloatingActionButton(
             text = { Text(stringResource(R.string.add)) },
             icon = { Icon(Icons.Default.Add, contentDescription = null) },
-            onClick = {
-                navController.navigate(Screen.DetailsScreen.route)
-            },
+            onClick = { navController.navigate(Screen.DetailsScreen.route) },
             shape = Shapes.medium
         )
     }) {
@@ -38,7 +36,10 @@ fun RecipeScreen(navController: NavController, list: List<Recipes>) {
                 contentPadding = PaddingValues(10.dp)
             ) {
                 items(list) { recipe ->
-                    RecipeCard(recipe.name)
+                    RecipeCard(
+                        onClick = { navController.navigate("details_screen/${recipe.name}/${recipe.name}") },
+                        text = recipe.name
+                    )
                 }
             }
         }

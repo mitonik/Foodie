@@ -13,8 +13,8 @@ import androidx.compose.ui.unit.dp
 
 @OptIn(ExperimentalMaterial3Api::class)
 @Composable
-fun RecipeCard(text: String) {
-    ElevatedCard {
+fun RecipeCard(onClick: () -> Unit, text: String) {
+    ElevatedCard(onClick) {
         Text(
             text,
             Modifier
@@ -29,5 +29,5 @@ fun RecipeCard(text: String) {
 @Preview
 @Composable
 fun RecipeCardPreview() {
-    RecipeCard("My Favourite Cakeaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa")
+    RecipeCard({}, "Cheesy Vegetarian Enchilada Casserole")
 }

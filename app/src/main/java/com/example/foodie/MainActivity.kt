@@ -9,9 +9,11 @@ import androidx.compose.material3.Scaffold
 import androidx.compose.runtime.livedata.observeAsState
 import androidx.compose.ui.Modifier
 import androidx.lifecycle.LiveData
+import androidx.navigation.NavType
 import androidx.navigation.compose.NavHost
 import androidx.navigation.compose.composable
 import androidx.navigation.compose.rememberNavController
+import androidx.navigation.navArgument
 import com.example.foodie.data.Recipes
 import com.example.foodie.data.RecipesRepository
 import com.example.foodie.data.RecipesRoomDatabase
@@ -50,8 +52,13 @@ class MainActivity : ComponentActivity() {
                         composable(route = Screen.SettingsScreen.route) {
                             SettingsScreen()
                         }
-                        composable(Screen.DetailsScreen.route) {
-                            DetailsScreen()
+                        composable(
+                            Screen.DetailsScreen.route,
+                            arguments = listOf(navArgument("title") {
+                                type = NavType.StringType
+                            })
+                        ) {
+                            DetailsScreen(it.arguments?.getString("title").toString(), "")
                         }
                     }
                 }

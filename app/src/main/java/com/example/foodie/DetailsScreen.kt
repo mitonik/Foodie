@@ -10,7 +10,7 @@ import com.example.foodie.ui.theme.Shapes
 
 @OptIn(ExperimentalMaterial3Api::class)
 @Composable
-fun DetailsScreen() {
+fun DetailsScreen(title: String, description: String) {
     Scaffold(floatingActionButton = {
         ExtendedFloatingActionButton(onClick = { /*TODO*/ }, shape = Shapes.medium) {
             Text("Edit")
@@ -18,8 +18,8 @@ fun DetailsScreen() {
     }) {
         Surface(Modifier.padding(it)) {
             Column {
-                Text("Title")
-                Text("Description")
+                Text(title)
+                Text(description)
             }
         }
     }
@@ -28,5 +28,8 @@ fun DetailsScreen() {
 @Preview
 @Composable
 fun DetailsScreenPreview() {
-    DetailsScreen()
+    DetailsScreen(
+        "Bacon Deviled Egg Recipes",
+        "Find irresistibly delicious recipes for bacon deviled eggs to serve at your next get-together."
+    )
 }

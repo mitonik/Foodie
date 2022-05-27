@@ -26,7 +26,7 @@ fun FavouriteScreen(list: List<Recipes>) {
                 contentPadding = PaddingValues(10.dp)
             ) {
                 items(list) { recipe ->
-                    RecipeCard(recipe.name)
+                    RecipeCard({}, recipe.name)
                 }
             }
         }
