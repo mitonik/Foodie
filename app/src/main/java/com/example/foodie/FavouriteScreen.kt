@@ -12,11 +12,11 @@ import androidx.compose.material3.Surface
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.unit.dp
-import com.example.foodie.data.Recipes
+import com.example.foodie.database.Recipe
 
 @ExperimentalMaterial3Api
 @Composable
-fun FavouriteScreen(list: List<Recipes>) {
+fun FavouriteScreen(list: List<Recipe>) {
     Scaffold {
         Surface(modifier = Modifier.padding(it)) {
             LazyVerticalGrid(
@@ -26,7 +26,9 @@ fun FavouriteScreen(list: List<Recipes>) {
                 contentPadding = PaddingValues(10.dp)
             ) {
                 items(list) { recipe ->
-                    RecipeCard({}, recipe.name)
+                    if (recipe.isFavourite == true) {
+                        recipe.name?.let { it1 -> RecipeCard({}, it1) }
+                    }
                 }
             }
         }

@@ -14,17 +14,24 @@ import androidx.compose.ui.Modifier
 import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.unit.dp
 import androidx.navigation.NavController
-import com.example.foodie.data.Recipes
+import com.example.foodie.database.Recipe
+import com.example.foodie.database.RecipeDao
 import com.example.foodie.ui.theme.Shapes
+import kotlinx.coroutines.runBlocking
 
 @ExperimentalMaterial3Api
 @Composable
-fun RecipeScreen(navController: NavController, list: List<Recipes>) {
+fun RecipeScreen(recipes: RecipeDao, navController: NavController, list: List<Recipe>) {
     Scaffold(floatingActionButton = {
         ExtendedFloatingActionButton(
             text = { Text(stringResource(R.string.add)) },
             icon = { Icon(Icons.Default.Add, contentDescription = null) },
-            onClick = { navController.navigate(Screen.DetailsScreen.route) },
+            onClick = {
+                runBlocking {
+                    recipes.insertAll(Recipe(0, "Recipe Name", "Custom Description", false))
+                }
+                navController.navigate(Screen.DetailsScreen.route)
+            },
             shape = Shapes.medium
         )
     }) {
@@ -36,10 +43,12 @@ fun RecipeScreen(navController: NavController, list: List<Recipes>) {
                 contentPadding = PaddingValues(10.dp)
             ) {
                 items(list) { recipe ->
-                    RecipeCard(
-                        onClick = { navController.navigate("details_screen/${recipe.name}/${recipe.name}") },
-                        text = recipe.name
-                    )
+                    recipe.name?.let { it1 ->
+                        RecipeCard(
+                            onClick = { navController.navigate("details_screen/${recipe.name}/${recipe.name}") },
+                            text = it1
+                        )
+                    }
                 }
             }
         }

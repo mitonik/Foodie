@@ -14,9 +14,9 @@ import androidx.navigation.compose.NavHost
 import androidx.navigation.compose.composable
 import androidx.navigation.compose.rememberNavController
 import androidx.navigation.navArgument
-import com.example.foodie.data.Recipes
-import com.example.foodie.data.RecipesRepository
-import com.example.foodie.data.RecipesRoomDatabase
+import androidx.room.Room
+import com.example.foodie.database.FoodieDatabase
+import com.example.foodie.database.Recipe
 import com.example.foodie.ui.theme.FoodieTheme
 
 @ExperimentalMaterial3Api
@@ -24,15 +24,13 @@ class MainActivity : ComponentActivity() {
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
 
-        val readAllData: LiveData<List<Recipes>>
-        val repository: RecipesRepository
-        val recipesDao = RecipesRoomDatabase.getDatabase(this).recipesDao()
-        repository = RecipesRepository(recipesDao)
-        readAllData = repository.allRecipes
+        val db = Room.databaseBuilder(this, FoodieDatabase::class.java, "foodie").build()
+        val recipeDao = db.recipeDao()
+        val recipes: LiveData<List<Recipe>> = recipeDao.getAll()
 
         setContent {
             val navController = rememberNavController()
-            val list = readAllData.observeAsState(listOf()).value
+            val list = recipes.observeAsState(listOf()).value
 
             FoodieTheme {
                 Scaffold(bottomBar = {
@@ -44,7 +42,7 @@ class MainActivity : ComponentActivity() {
                         Modifier.padding(it)
                     ) {
                         composable(route = Screen.RecipeScreen.route) {
-                            RecipeScreen(navController, list)
+                            RecipeScreen(recipeDao, navController, list)
                         }
                         composable(route = Screen.FavouriteScreen.route) {
                             FavouriteScreen(list)
@@ -54,16 +52,18 @@ class MainActivity : ComponentActivity() {
                         }
                         composable(
                             Screen.DetailsScreen.route,
-                            arguments = listOf(navArgument("title") {
-                                type = NavType.StringType
-                            })
+                            arguments = listOf(
+                                navArgument("title") { type = NavType.StringType },
+                                navArgument("description") { type = NavType.StringType }
+                            )
                         ) {
                             DetailsScreen(
                                 {},
                                 it.arguments?.getString("title").toString(),
-                                "",
+                                it.arguments?.getString("description").toString(),
                                 false,
-                                {})
+                                {}
+                            )
                         }
                     }
                 }
