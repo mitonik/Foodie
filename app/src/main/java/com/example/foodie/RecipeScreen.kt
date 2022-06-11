@@ -17,7 +17,7 @@ import androidx.navigation.NavController
 import com.example.foodie.data.Recipes
 import com.example.foodie.ui.theme.Shapes
 
-@OptIn(ExperimentalMaterial3Api::class)
+@ExperimentalMaterial3Api
 @Composable
 fun RecipeScreen(navController: NavController, list: List<Recipes>) {
     Scaffold(floatingActionButton = {

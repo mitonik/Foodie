@@ -11,7 +11,7 @@ import androidx.compose.ui.text.style.TextOverflow
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
 
-@OptIn(ExperimentalMaterial3Api::class)
+@ExperimentalMaterial3Api
 @Composable
 fun RecipeCard(onClick: () -> Unit, text: String) {
     ElevatedCard(onClick) {
@@ -26,6 +26,7 @@ fun RecipeCard(onClick: () -> Unit, text: String) {
     }
 }
 
+@ExperimentalMaterial3Api
 @Preview
 @Composable
 fun RecipeCardPreview() {

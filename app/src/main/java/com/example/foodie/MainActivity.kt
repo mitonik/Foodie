@@ -19,8 +19,8 @@ import com.example.foodie.data.RecipesRepository
 import com.example.foodie.data.RecipesRoomDatabase
 import com.example.foodie.ui.theme.FoodieTheme
 
+@ExperimentalMaterial3Api
 class MainActivity : ComponentActivity() {
-    @OptIn(ExperimentalMaterial3Api::class)
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
 
@@ -37,7 +37,7 @@ class MainActivity : ComponentActivity() {
             FoodieTheme {
                 Scaffold(bottomBar = {
                     FoodieNavigationBar(navController)
-                }) {
+                }) { it ->
                     NavHost(
                         navController,
                         Screen.RecipeScreen.route,
@@ -58,7 +58,12 @@ class MainActivity : ComponentActivity() {
                                 type = NavType.StringType
                             })
                         ) {
-                            DetailsScreen(it.arguments?.getString("title").toString(), "")
+                            DetailsScreen(
+                                {},
+                                it.arguments?.getString("title").toString(),
+                                "",
+                                false,
+                                {})
                         }
                     }
                 }
