@@ -4,4 +4,7 @@
     <string name="favourites">Ulubione</string>
     <string name="settings">Ustawienia</string>
     <string name="add">Dodaj</string>
+    <string name="edit">Edytuj</string>
+    <string name="edit_recipe_description">Opis</string>
+    <string name="edit_recipe_name">Nazwa przepisu</string>
 </resources>
