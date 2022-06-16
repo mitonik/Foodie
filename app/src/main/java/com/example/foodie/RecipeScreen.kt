@@ -28,7 +28,7 @@ fun RecipeScreen(recipes: RecipeDao, navController: NavController, list: List<Re
             icon = { Icon(Icons.Default.Add, contentDescription = null) },
             onClick = {
                 runBlocking {
-                    recipes.insertAll(Recipe(0, "Recipe Name", "Custom Description", false))
+                    recipes.insertRecipes(Recipe(0, "Recipe Name", "Custom Description", false))
                 }
                 navController.navigate(Screen.DetailsScreen.route)
             },

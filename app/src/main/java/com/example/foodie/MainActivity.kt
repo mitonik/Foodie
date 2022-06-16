@@ -9,6 +9,7 @@ import androidx.compose.material3.Scaffold
 import androidx.compose.runtime.livedata.observeAsState
 import androidx.compose.ui.Modifier
 import androidx.lifecycle.LiveData
+import androidx.lifecycle.asLiveData
 import androidx.navigation.NavType
 import androidx.navigation.compose.NavHost
 import androidx.navigation.compose.composable
@@ -26,7 +27,7 @@ class MainActivity : ComponentActivity() {
 
         val db = Room.databaseBuilder(this, FoodieDatabase::class.java, "foodie").build()
         val recipeDao = db.recipeDao()
-        val recipes: LiveData<List<Recipe>> = recipeDao.getAll()
+        val recipes: LiveData<List<Recipe>> = recipeDao.getAll().asLiveData()
 
         setContent {
             val navController = rememberNavController()
