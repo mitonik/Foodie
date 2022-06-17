@@ -9,10 +9,10 @@ import androidx.navigation.compose.NavHost
 import androidx.navigation.compose.composable
 import androidx.navigation.compose.rememberNavController
 import androidx.navigation.navArgument
-import com.example.foodie.DetailsScreen
-import com.example.foodie.FavouriteScreen
-import com.example.foodie.RecipeScreen
-import com.example.foodie.SettingsScreen
+import com.example.foodie.ui.DetailsScreen
+import com.example.foodie.ui.FavouriteScreen
+import com.example.foodie.ui.RecipeScreen
+import com.example.foodie.ui.SettingsScreen
 
 @ExperimentalMaterial3Api
 @Composable
@@ -31,11 +31,9 @@ fun FoodieNavHost(
                 navArgument("description") { type = NavType.StringType })
         ) {
             DetailsScreen(
-                {},
                 it.arguments?.getString("title").toString(),
                 it.arguments?.getString("description").toString(),
-                false,
-                {}
+                false
             )
         }
     }

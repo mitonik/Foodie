@@ -1,4 +1,4 @@
-package com.example.foodie
+package com.example.foodie.ui
 
 import androidx.compose.foundation.layout.fillMaxSize
 import androidx.compose.material3.Surface

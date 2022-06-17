@@ -1,4 +1,4 @@
-package com.example.foodie
+package com.example.foodie.ui
 
 import android.content.res.Configuration
 import androidx.compose.foundation.Image
@@ -16,29 +16,28 @@ import androidx.compose.ui.layout.ContentScale
 import androidx.compose.ui.res.painterResource
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
+import com.example.foodie.R
 import com.example.foodie.theme.FoodieTheme
 
 @ExperimentalMaterial3Api
 @Composable
 fun DetailsScreen(
-    navigationAction: () -> Unit,
     title: String,
     description: String,
-    favourite: Boolean,
-    favouriteAction: () -> Unit
+    isFavourite: Boolean,
 ) {
     Scaffold(
         topBar = {
             SmallTopAppBar(
                 navigationIcon = {
-                    IconButton(onClick = navigationAction) {
+                    IconButton(onClick = { /* TODO */ }) {
                         Icon(Icons.Outlined.ArrowBack, null)
                     }
                 },
                 title = { Text(title) },
                 actions = {
-                    IconButton(onClick = favouriteAction) {
-                        if (favourite) {
+                    IconButton(onClick = { /* TODO */ }) {
+                        if (isFavourite) {
                             Icon(Icons.Outlined.Favorite, null)
                         } else {
                             Icon(Icons.Outlined.FavoriteBorder, null)
@@ -70,11 +69,9 @@ fun DetailsScreen(
 fun DetailsScreenPreview() {
     FoodieTheme {
         DetailsScreen(
-            {},
             "Bacon Deviled Egg Recipes",
             "Find irresistibly delicious recipes for bacon deviled eggs to serve at your next get-together.",
-            true,
-            {}
+            true
         )
     }
 }

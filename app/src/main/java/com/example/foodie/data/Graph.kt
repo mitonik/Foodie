@@ -6,8 +6,9 @@ import com.example.foodie.db.FoodieDatabase
 
 object Graph {
     lateinit var database: FoodieDatabase
+
     val recipeStore by lazy {
-        RecipeStore(recipeDao = database.recipeDao())
+        RecipeStore(database.recipeDao())
     }
 
     fun provide(context: Context) {

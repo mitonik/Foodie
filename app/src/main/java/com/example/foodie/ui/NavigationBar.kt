@@ -1,4 +1,4 @@
-package com.example.foodie
+package com.example.foodie.ui
 
 import androidx.compose.material.icons.Icons
 import androidx.compose.material.icons.filled.FavoriteBorder
@@ -15,6 +15,7 @@ import androidx.compose.runtime.Composable
 import androidx.compose.ui.res.stringResource
 import androidx.navigation.NavController
 import androidx.navigation.compose.currentBackStackEntryAsState
+import com.example.foodie.R
 import com.example.foodie.navigation.Screen
 
 @Composable

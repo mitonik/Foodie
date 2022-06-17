@@ -1,4 +1,4 @@
-package com.example.foodie
+package com.example.foodie.ui
 
 import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.PaddingValues

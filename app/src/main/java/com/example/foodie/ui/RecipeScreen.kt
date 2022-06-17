@@ -1,4 +1,4 @@
-package com.example.foodie
+package com.example.foodie.ui
 
 import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.PaddingValues
@@ -17,6 +17,7 @@ import androidx.compose.ui.unit.dp
 import androidx.lifecycle.LiveData
 import androidx.lifecycle.asLiveData
 import androidx.navigation.NavController
+import com.example.foodie.R
 import com.example.foodie.data.Graph
 import com.example.foodie.db.Recipe
 import com.example.foodie.theme.Shapes
@@ -49,7 +50,7 @@ fun RecipeScreen(navController: NavController) {
                 items(list) { recipe ->
                     recipe.name?.let { it1 ->
                         RecipeCard(
-                            onClick = { navController.navigate("details_screen/${recipe.name}/${recipe.name}") },
+                            onClick = { navController.navigate("details_screen/${recipe.name}/${recipe.description}") },
                             text = it1
                         )
                     }

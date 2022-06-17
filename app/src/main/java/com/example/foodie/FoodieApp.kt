@@ -9,11 +9,11 @@ import androidx.navigation.compose.rememberNavController
 import com.example.foodie.navigation.FoodieNavHost
 import com.example.foodie.navigation.Screen
 import com.example.foodie.theme.FoodieTheme
+import com.example.foodie.ui.FoodieNavigationBar
 
 @ExperimentalMaterial3Api
 @Composable
 fun FoodieApp() {
-
     val navController = rememberNavController()
     FoodieTheme {
         Scaffold(

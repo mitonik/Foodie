@@ -9,7 +9,7 @@ interface RecipeDao {
     fun getAll(): Flow<List<Recipe>>
 
     @Query("SELECT * FROM recipe WHERE id = :id")
-    fun loadRecipeById(id: Int): Recipe
+    fun loadRecipeById(id: Int): Flow<Recipe>
 
     @Insert(onConflict = OnConflictStrategy.REPLACE)
     suspend fun insertRecipes(vararg recipes: Recipe)
@@ -18,5 +18,5 @@ interface RecipeDao {
     suspend fun updateRecipes(vararg recipes: Recipe)
 
     @Delete
-    fun delete(recipe: Recipe)
+    suspend fun delete(recipe: Recipe)
 }
