@@ -1,4 +1,4 @@
-package com.example.foodie.database
+package com.example.foodie.db
 
 import androidx.room.*
 import kotlinx.coroutines.flow.Flow

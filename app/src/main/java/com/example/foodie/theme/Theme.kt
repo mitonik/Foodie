@@ -1,4 +1,4 @@
-package com.example.foodie.ui.theme
+package com.example.foodie.theme
 
 import androidx.compose.foundation.isSystemInDarkTheme
 import androidx.compose.material3.darkColorScheme

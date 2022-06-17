@@ -1,4 +1,4 @@
-package com.example.foodie
+package com.example.foodie.navigation
 
 sealed class Screen(val route: String) {
     object RecipeScreen: Screen("recipe_screen")

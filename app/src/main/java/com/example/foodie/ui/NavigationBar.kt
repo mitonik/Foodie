@@ -15,6 +15,7 @@ import androidx.compose.runtime.Composable
 import androidx.compose.ui.res.stringResource
 import androidx.navigation.NavController
 import androidx.navigation.compose.currentBackStackEntryAsState
+import com.example.foodie.navigation.Screen
 
 @Composable
 fun FoodieNavigationBar(navController: NavController) {

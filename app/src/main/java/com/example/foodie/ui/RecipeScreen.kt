@@ -14,23 +14,22 @@ import androidx.compose.ui.Modifier
 import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.unit.dp
 import androidx.navigation.NavController
-import com.example.foodie.database.Recipe
-import com.example.foodie.database.RecipeDao
-import com.example.foodie.ui.theme.Shapes
+import com.example.foodie.data.Graph
+import com.example.foodie.db.Recipe
+import com.example.foodie.theme.Shapes
 import kotlinx.coroutines.runBlocking
 
 @ExperimentalMaterial3Api
 @Composable
-fun RecipeScreen(recipes: RecipeDao, navController: NavController, list: List<Recipe>) {
+fun RecipeScreen(navController: NavController, list: List<Recipe>) {
     Scaffold(floatingActionButton = {
         ExtendedFloatingActionButton(
             text = { Text(stringResource(R.string.add)) },
             icon = { Icon(Icons.Default.Add, contentDescription = null) },
             onClick = {
                 runBlocking {
-                    recipes.insertRecipes(Recipe(0, "Recipe Name", "Custom Description", false))
+                    Graph.recipeStore.insertRecipes()
                 }
-                navController.navigate(Screen.DetailsScreen.route)
             },
             shape = Shapes.medium
         )

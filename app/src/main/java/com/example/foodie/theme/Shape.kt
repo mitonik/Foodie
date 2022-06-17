@@ -1,4 +1,4 @@
-package com.example.foodie.ui.theme
+package com.example.foodie.theme
 
 import androidx.compose.foundation.shape.RoundedCornerShape
 import androidx.compose.ui.unit.dp
