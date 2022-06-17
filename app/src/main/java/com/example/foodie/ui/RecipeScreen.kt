@@ -21,8 +21,8 @@ import androidx.navigation.NavController
 import com.example.foodie.R
 import com.example.foodie.data.Graph
 import com.example.foodie.db.Recipe
+import com.example.foodie.navigation.Screen
 import com.example.foodie.theme.Shapes
-import kotlinx.coroutines.runBlocking
 
 @ExperimentalMaterial3Api
 @Composable
@@ -34,9 +34,7 @@ fun RecipeScreen(navController: NavController) {
             text = { Text(stringResource(R.string.add)) },
             icon = { Icon(Icons.Default.Add, contentDescription = null) },
             onClick = {
-                runBlocking {
-                    Graph.recipeStore.insertRecipes()
-                }
+                navController.navigate(Screen.AddScreen.route)
             },
             shape = Shapes.medium
         )

@@ -45,5 +45,10 @@ fun FoodieNavHost(
                 )
             }
         }
+        composable(Screen.AddScreen.route) {
+            AddScreen {
+                navController.navigateUp()
+            }
+        }
     }
 }
