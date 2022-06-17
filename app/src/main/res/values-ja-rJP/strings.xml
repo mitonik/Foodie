@@ -1,0 +1,11 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <string name="recipes">レシピ</string>
+    <string name="favourites">お気に入り</string>
+    <string name="settings">設定</string>
+    <string name="add">追加</string>
+    <string name="edit">編集</string>
+    <string name="edit_recipe_name">レシピ名</string>
+    <string name="edit_recipe_description">説明</string>
+    <string name="dark_theme">暗いテーマ</string>
+</resources>
