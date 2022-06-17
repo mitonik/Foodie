@@ -7,4 +7,5 @@
     <string name="edit">Edytuj</string>
     <string name="edit_recipe_description">Opis</string>
     <string name="edit_recipe_name">Nazwa przepisu</string>
+    <string name="dark_theme">Tryb ciemny</string>
 </resources>

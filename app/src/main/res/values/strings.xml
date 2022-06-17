@@ -7,4 +7,5 @@
     <string name="edit">Edit</string>
     <string name="edit_recipe_name">Recipe Name</string>
     <string name="edit_recipe_description">Description</string>
+    <string name="dark_theme">Dark theme</string>
 </resources>
