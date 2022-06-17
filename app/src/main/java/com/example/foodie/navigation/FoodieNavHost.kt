@@ -9,10 +9,7 @@ import androidx.navigation.compose.NavHost
 import androidx.navigation.compose.composable
 import androidx.navigation.compose.rememberNavController
 import androidx.navigation.navArgument
-import com.example.foodie.ui.DetailsScreen
-import com.example.foodie.ui.FavouriteScreen
-import com.example.foodie.ui.RecipeScreen
-import com.example.foodie.ui.SettingsScreen
+import com.example.foodie.ui.*
 
 @ExperimentalMaterial3Api
 @Composable
@@ -31,6 +28,16 @@ fun FoodieNavHost(
         ) {
             it.arguments?.getInt("id")?.let { id ->
                 DetailsScreen(
+                    id
+                ) { navController.navigate("edit_screen/${id}") }
+            }
+        }
+        composable(
+            Screen.EditScreen.route, listOf(
+                navArgument("id") { type = NavType.IntType })
+        ) {
+            it.arguments?.getInt("id")?.let { id ->
+                EditScreen(
                     id
                 )
             }

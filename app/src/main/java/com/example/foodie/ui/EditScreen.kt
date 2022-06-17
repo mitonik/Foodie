@@ -4,39 +4,60 @@ import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.padding
 import androidx.compose.material3.*
 import androidx.compose.runtime.Composable
+import androidx.compose.runtime.livedata.observeAsState
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.res.stringResource
-import androidx.compose.ui.tooling.preview.Preview
+import androidx.lifecycle.asLiveData
 import com.example.foodie.R
-import com.example.foodie.theme.FoodieTheme
+import com.example.foodie.data.Graph
+import kotlinx.coroutines.runBlocking
 
 @ExperimentalMaterial3Api
 @Composable
 fun EditScreen(
-    name: String,
-    description: String,
+    id: Int
 ) {
+    val recipe = Graph.recipeStore.loadRecipeById(id).asLiveData().observeAsState().value
     Scaffold {
         Surface(Modifier.padding(it)) {
             Column {
-                OutlinedTextField(
-                    value = name,
-                    onValueChange = {},
-                    label = { Text(stringResource(R.string.edit_recipe_name)) })
-                OutlinedTextField(
-                    value = description,
-                    onValueChange = {},
-                    label = { Text(stringResource(R.string.edit_recipe_description)) })
+                if (recipe != null) {
+                    recipe.name?.let { it1 ->
+                        OutlinedTextField(
+                            value = it1,
+                            onValueChange = {
+                                runBlocking {
+                                    if ((recipe.isFavourite != null) && recipe.description != null) {
+                                        Graph.recipeStore.updateRecipes(
+                                            recipe.id,
+                                            it,
+                                            recipe.description,
+                                            recipe.isFavourite
+                                        )
+                                    }
+                                }
+                            },
+                            label = { Text(stringResource(R.string.edit_recipe_name)) })
+                    }
+                    recipe.description?.let { it1 ->
+                        OutlinedTextField(
+                            value = it1,
+                            onValueChange = {
+                                runBlocking {
+                                    if ((recipe.name != null) && (recipe.isFavourite != null)) {
+                                        Graph.recipeStore.updateRecipes(
+                                            recipe.id,
+                                            recipe.name,
+                                            it,
+                                            recipe.isFavourite
+                                        )
+                                    }
+                                }
+                            },
+                            label = { Text(stringResource(R.string.edit_recipe_description)) })
+                    }
+                }
             }
         }
-    }
-}
-
-@ExperimentalMaterial3Api
-@Preview
-@Composable
-fun EditScreenPreview() {
-    FoodieTheme {
-        EditScreen("Name", "Desc")
     }
 }
