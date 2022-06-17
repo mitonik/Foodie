@@ -20,7 +20,7 @@ fun FoodieNavHost(
 ) {
     NavHost(navController, startDestination, modifier) {
         composable(Screen.RecipeScreen.route) { RecipeScreen(navController) }
-        composable(Screen.FavouriteScreen.route) { FavouriteScreen() }
+        composable(Screen.FavouriteScreen.route) { FavouriteScreen(navController) }
         composable(Screen.SettingsScreen.route) { SettingsScreen() }
         composable(
             Screen.DetailsScreen.route, listOf(

@@ -11,6 +11,10 @@ class RecipeStore(
         return recipeDao.getAll()
     }
 
+    fun getFavourite(): Flow<List<Recipe>> {
+        return recipeDao.getFavourite()
+    }
+
     fun loadRecipeById(id: Int): Flow<Recipe> {
         return recipeDao.loadRecipeById(id)
     }
