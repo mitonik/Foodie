@@ -8,6 +8,7 @@ import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.foundation.layout.padding
 import androidx.compose.material.icons.Icons
 import androidx.compose.material.icons.filled.Edit
+import androidx.compose.material.icons.outlined.Delete
 import androidx.compose.material.icons.outlined.Favorite
 import androidx.compose.material.icons.outlined.FavoriteBorder
 import androidx.compose.material3.*
@@ -31,7 +32,8 @@ import kotlinx.coroutines.runBlocking
 @Composable
 fun DetailsScreen(
     id: Int,
-    onEdit: () -> Unit
+    onEdit: () -> Unit,
+    onDelete: () -> Unit
 ) {
     val recipe = Graph.recipeStore.loadRecipeById(id).asLiveData().observeAsState().value
     Scaffold(
@@ -44,6 +46,21 @@ fun DetailsScreen(
                     }
                 },
                 actions = {
+                    IconButton(onClick = {
+                        runBlocking {
+                            if (recipe?.name != null && recipe.description != null && recipe.isFavourite != null) {
+                                Graph.recipeStore.deleteRecipe(
+                                    recipe.id,
+                                    recipe.name,
+                                    recipe.description,
+                                    !recipe.isFavourite
+                                )
+                            }
+                            onDelete()
+                        }
+                    }) {
+                        Icon(Icons.Outlined.Delete, null)
+                    }
                     IconButton(onClick = {
                         runBlocking {
                             if (recipe?.name != null && recipe.description != null && recipe.isFavourite != null) {
@@ -100,7 +117,8 @@ fun DetailsScreen(
 fun DetailsScreenPreview() {
     FoodieTheme {
         DetailsScreen(
-            0
+            0,
+            {}
         ) {}
     }
 }

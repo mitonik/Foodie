@@ -28,8 +28,11 @@ fun FoodieNavHost(
         ) {
             it.arguments?.getInt("id")?.let { id ->
                 DetailsScreen(
-                    id
-                ) { navController.navigate("edit_screen/${id}") }
+                    id,
+                    { navController.navigate("edit_screen/${id}") }
+                ) {
+                    navController.navigateUp()
+                }
             }
         }
         composable(

@@ -19,6 +19,10 @@ class RecipeStore(
         recipeDao.insertRecipes(Recipe(0, "Recipe Name", "Custom Description", true))
     }
 
+    suspend fun deleteRecipe(id: Int, name: String, description: String, isFavourite: Boolean) {
+        recipeDao.delete(Recipe(id, name, description, isFavourite))
+    }
+
     suspend fun updateRecipes(id: Int, name: String, description: String, isFavourite: Boolean) {
         recipeDao.updateRecipes(Recipe(id, name, description, isFavourite))
     }
