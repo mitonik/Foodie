@@ -10,6 +10,7 @@ import androidx.compose.ui.res.stringResource
 import androidx.lifecycle.asLiveData
 import com.example.foodie.R
 import com.example.foodie.data.Graph
+import com.example.foodie.db.Recipe
 import kotlinx.coroutines.runBlocking
 
 @ExperimentalMaterial3Api
@@ -29,10 +30,12 @@ fun EditScreen(
                                 runBlocking {
                                     if ((recipe.isFavourite != null) && recipe.description != null) {
                                         Graph.recipeStore.updateRecipes(
-                                            recipe.id,
-                                            it,
-                                            recipe.description,
-                                            recipe.isFavourite
+                                            Recipe(
+                                                recipe.id,
+                                                it,
+                                                recipe.description,
+                                                recipe.isFavourite
+                                            )
                                         )
                                     }
                                 }
@@ -46,10 +49,7 @@ fun EditScreen(
                                 runBlocking {
                                     if ((recipe.name != null) && (recipe.isFavourite != null)) {
                                         Graph.recipeStore.updateRecipes(
-                                            recipe.id,
-                                            recipe.name,
-                                            it,
-                                            recipe.isFavourite
+                                            Recipe(recipe.id, recipe.name, it, recipe.isFavourite)
                                         )
                                     }
                                 }

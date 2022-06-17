@@ -20,7 +20,6 @@ import com.example.foodie.R
 import com.example.foodie.data.Graph
 import com.example.foodie.db.Recipe
 import com.example.foodie.navigation.Screen
-import com.example.foodie.theme.Shapes
 
 @ExperimentalMaterial3Api
 @Composable
@@ -30,11 +29,9 @@ fun RecipeScreen(navController: NavController) {
     Scaffold(floatingActionButton = {
         ExtendedFloatingActionButton(
             text = { Text(stringResource(R.string.add)) },
-            icon = { Icon(Icons.Default.Add, contentDescription = null) },
-            onClick = {
-                navController.navigate(Screen.AddScreen.route)
-            },
-            shape = Shapes.medium
+            icon = { Icon(Icons.Filled.Add, contentDescription = null) },
+            onClick = { navController.navigate(Screen.AddScreen.route) },
+            shape = MaterialTheme.shapes.medium
         )
     }) {
         Surface(modifier = Modifier.padding(it)) {
@@ -49,7 +46,7 @@ fun RecipeScreen(navController: NavController) {
             ) {
                 items(recipes) { recipe ->
                     ElevatedCard(onClick = {
-                        navController.navigate("details_screen/${recipe.id}")
+                        navController.navigate("${Screen.DetailsScreen.route}/${recipe.id}")
                     }) {
                         if (recipe.name != null) {
                             Text(

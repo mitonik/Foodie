@@ -11,6 +11,7 @@ import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.tooling.preview.Preview
 import com.example.foodie.R
 import com.example.foodie.data.Graph
+import com.example.foodie.db.Recipe
 import com.example.foodie.theme.FoodieTheme
 import kotlinx.coroutines.runBlocking
 
@@ -52,10 +53,7 @@ fun AddScreen(
                 onClick = {
                     runBlocking {
                         Graph.recipeStore.insertRecipes(
-                            0,
-                            name.value,
-                            description.value,
-                            isFavourite.value
+                            Recipe(0, name.value, description.value, isFavourite.value)
                         )
                     }
                     onAdd()

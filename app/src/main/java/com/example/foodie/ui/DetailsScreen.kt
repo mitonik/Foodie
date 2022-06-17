@@ -1,6 +1,5 @@
 package com.example.foodie.ui
 
-import android.content.res.Configuration
 import androidx.compose.foundation.Image
 import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.fillMaxSize
@@ -17,12 +16,11 @@ import androidx.compose.runtime.livedata.observeAsState
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.layout.ContentScale
 import androidx.compose.ui.res.painterResource
-import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
 import androidx.lifecycle.asLiveData
 import com.example.foodie.R
 import com.example.foodie.data.Graph
-import com.example.foodie.theme.FoodieTheme
+import com.example.foodie.db.Recipe
 import kotlinx.coroutines.runBlocking
 
 
@@ -44,15 +42,16 @@ fun DetailsScreen(
                     }
                 },
                 actions = {
-
                     IconButton(onClick = {
                         runBlocking {
                             if (recipe?.name != null && recipe.description != null && recipe.isFavourite != null) {
                                 Graph.recipeStore.updateRecipes(
-                                    recipe.id,
-                                    recipe.name,
-                                    recipe.description,
-                                    !recipe.isFavourite
+                                    Recipe(
+                                        recipe.id,
+                                        recipe.name,
+                                        recipe.description,
+                                        !recipe.isFavourite
+                                    )
                                 )
                             }
                         }
@@ -65,19 +64,19 @@ fun DetailsScreen(
                             }
                         }
                     }
-                    IconButton(onClick = {
-                        onEdit()
-                    }) {
+                    IconButton(onClick = { onEdit() }) {
                         Icon(Icons.Outlined.Edit, null)
                     }
                     IconButton(onClick = {
                         runBlocking {
                             if (recipe?.name != null && recipe.description != null && recipe.isFavourite != null) {
                                 Graph.recipeStore.deleteRecipe(
-                                    recipe.id,
-                                    recipe.name,
-                                    recipe.description,
-                                    !recipe.isFavourite
+                                    Recipe(
+                                        recipe.id,
+                                        recipe.name,
+                                        recipe.description,
+                                        !recipe.isFavourite
+                                    )
                                 )
                             }
                             onDelete()
@@ -92,8 +91,8 @@ fun DetailsScreen(
         Surface(Modifier.padding(it)) {
             Column {
                 Image(
-                    painter = painterResource(R.drawable.ic_launcher_background),
-                    contentDescription = null,
+                    painterResource(R.drawable.ic_launcher_background),
+                    null,
                     Modifier.fillMaxWidth(),
                     contentScale = ContentScale.Crop
                 )
@@ -102,19 +101,5 @@ fun DetailsScreen(
                 }
             }
         }
-    }
-}
-
-@ExperimentalMaterial3Api
-@Preview(name = "Light theme")
-@Preview(name = "Dark theme", uiMode = Configuration.UI_MODE_NIGHT_YES)
-@Preview(name = "Polish", locale = "pl")
-@Composable
-fun DetailsScreenPreview() {
-    FoodieTheme {
-        DetailsScreen(
-            0,
-            {}
-        ) {}
     }
 }

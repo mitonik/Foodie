@@ -15,15 +15,15 @@ class RecipeStore(
         return recipeDao.loadRecipeById(id)
     }
 
-    suspend fun insertRecipes(id: Int, name: String, description: String, isFavourite: Boolean) {
-        recipeDao.insertRecipes(Recipe(id, name, description, isFavourite))
+    suspend fun insertRecipes(recipe: Recipe) {
+        recipeDao.insertRecipes(recipe)
     }
 
-    suspend fun deleteRecipe(id: Int, name: String, description: String, isFavourite: Boolean) {
-        recipeDao.delete(Recipe(id, name, description, isFavourite))
+    suspend fun deleteRecipe(recipe: Recipe) {
+        recipeDao.delete(recipe)
     }
 
-    suspend fun updateRecipes(id: Int, name: String, description: String, isFavourite: Boolean) {
-        recipeDao.updateRecipes(Recipe(id, name, description, isFavourite))
+    suspend fun updateRecipes(recipe: Recipe) {
+        recipeDao.updateRecipes(recipe)
     }
 }

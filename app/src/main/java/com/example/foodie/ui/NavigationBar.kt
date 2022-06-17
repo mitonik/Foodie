@@ -1,11 +1,10 @@
 package com.example.foodie.ui
 
 import androidx.compose.material.icons.Icons
-import androidx.compose.material.icons.filled.FavoriteBorder
+import androidx.compose.material.icons.filled.Favorite
 import androidx.compose.material.icons.filled.List
 import androidx.compose.material.icons.filled.Settings
-import androidx.compose.material.icons.outlined.Favorite
-import androidx.compose.material.icons.outlined.List
+import androidx.compose.material.icons.outlined.FavoriteBorder
 import androidx.compose.material.icons.outlined.Settings
 import androidx.compose.material3.Icon
 import androidx.compose.material3.NavigationBar
@@ -20,28 +19,18 @@ import com.example.foodie.navigation.Screen
 
 @Composable
 fun FoodieNavigationBar(navController: NavController) {
+    val currentRoute = navController.currentBackStackEntryAsState().value?.destination?.route
+
     NavigationBar {
-        val currentRoute = navController.currentBackStackEntryAsState().value?.destination?.route
         NavigationBarItem(
             selected = currentRoute == Screen.RecipeScreen.route,
             onClick = {
                 navController.popBackStack()
                 navController.navigate(Screen.RecipeScreen.route)
             },
-            icon = {
-                if (currentRoute == Screen.RecipeScreen.route) {
-                    Icon(
-                        Icons.Filled.List,
-                        contentDescription = null
-                    )
-                } else {
-                    Icon(
-                        Icons.Outlined.List,
-                        contentDescription = null
-                    )
-                }
-            },
-            label = { Text(text = stringResource(R.string.recipes)) })
+            icon = { Icon(Icons.Filled.List, contentDescription = null) },
+            label = { Text(text = stringResource(R.string.recipes)) }
+        )
 
         NavigationBarItem(
             selected = currentRoute == Screen.FavouriteScreen.route,
@@ -51,18 +40,13 @@ fun FoodieNavigationBar(navController: NavController) {
             },
             icon = {
                 if (currentRoute == Screen.FavouriteScreen.route) {
-                    Icon(
-                        Icons.Outlined.Favorite,
-                        contentDescription = null
-                    )
+                    Icon(Icons.Filled.Favorite, contentDescription = null)
                 } else {
-                    Icon(
-                        Icons.Filled.FavoriteBorder,
-                        contentDescription = null
-                    )
+                    Icon(Icons.Outlined.FavoriteBorder, contentDescription = null)
                 }
             },
-            label = { Text(text = stringResource(R.string.favourites)) })
+            label = { Text(text = stringResource(R.string.favourites)) }
+        )
 
         NavigationBarItem(
             selected = currentRoute == Screen.SettingsScreen.route,
@@ -72,17 +56,12 @@ fun FoodieNavigationBar(navController: NavController) {
             },
             icon = {
                 if (currentRoute == Screen.SettingsScreen.route) {
-                    Icon(
-                        Icons.Filled.Settings,
-                        contentDescription = null
-                    )
+                    Icon(Icons.Filled.Settings, contentDescription = null)
                 } else {
-                    Icon(
-                        Icons.Outlined.Settings,
-                        contentDescription = null
-                    )
+                    Icon(Icons.Outlined.Settings, contentDescription = null)
                 }
             },
-            label = { Text(text = stringResource(R.string.settings)) })
+            label = { Text(text = stringResource(R.string.settings)) }
+        )
     }
 }
