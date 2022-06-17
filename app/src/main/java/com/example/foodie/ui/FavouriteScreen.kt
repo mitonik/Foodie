@@ -10,13 +10,19 @@ import androidx.compose.material3.ExperimentalMaterial3Api
 import androidx.compose.material3.Scaffold
 import androidx.compose.material3.Surface
 import androidx.compose.runtime.Composable
+import androidx.compose.runtime.livedata.observeAsState
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.unit.dp
+import androidx.lifecycle.LiveData
+import androidx.lifecycle.asLiveData
+import com.example.foodie.data.Graph
 import com.example.foodie.db.Recipe
 
 @ExperimentalMaterial3Api
 @Composable
-fun FavouriteScreen(list: List<Recipe>) {
+fun FavouriteScreen() {
+    val recipes: LiveData<List<Recipe>> = Graph.recipeStore.getAll().asLiveData()
+    val list = recipes.observeAsState(listOf()).value
     Scaffold {
         Surface(modifier = Modifier.padding(it)) {
             LazyVerticalGrid(

@@ -10,9 +10,12 @@ import androidx.compose.material.icons.Icons
 import androidx.compose.material.icons.filled.Add
 import androidx.compose.material3.*
 import androidx.compose.runtime.Composable
+import androidx.compose.runtime.livedata.observeAsState
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.unit.dp
+import androidx.lifecycle.LiveData
+import androidx.lifecycle.asLiveData
 import androidx.navigation.NavController
 import com.example.foodie.data.Graph
 import com.example.foodie.db.Recipe
@@ -21,7 +24,9 @@ import kotlinx.coroutines.runBlocking
 
 @ExperimentalMaterial3Api
 @Composable
-fun RecipeScreen(navController: NavController, list: List<Recipe>) {
+fun RecipeScreen(navController: NavController) {
+    val recipes: LiveData<List<Recipe>> = Graph.recipeStore.getAll().asLiveData()
+    val list = recipes.observeAsState(listOf()).value
     Scaffold(floatingActionButton = {
         ExtendedFloatingActionButton(
             text = { Text(stringResource(R.string.add)) },
