@@ -5,7 +5,7 @@ import androidx.room.Room
 import com.example.foodie.db.FoodieDatabase
 
 object Graph {
-    lateinit var database: FoodieDatabase
+    private lateinit var database: FoodieDatabase
 
     val recipeStore by lazy {
         RecipeStore(database.recipeDao())

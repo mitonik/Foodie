@@ -1,8 +1,8 @@
 package com.example.foodie.navigation
 
 sealed class Screen(val route: String) {
-    object RecipeScreen: Screen("recipe_screen")
-    object FavouriteScreen: Screen("favourite_screen")
+    object RecipeScreen : Screen("recipe_screen")
+    object FavouriteScreen : Screen("favourite_screen")
     object SettingsScreen : Screen("settings_screen")
-    object DetailsScreen : Screen("details_screen/{title}/{description}")
+    object DetailsScreen : Screen("details_screen/{id}/{title}/{description}/{isFavourite}")
 }

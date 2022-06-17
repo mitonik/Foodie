@@ -12,6 +12,6 @@ class RecipeStore(
     }
 
     suspend fun insertRecipes() {
-        recipeDao.insertRecipes(Recipe(0, "Recipe Name", "Custom Description", false))
+        recipeDao.insertRecipes(Recipe(0, "Recipe Name", "Custom Description", true))
     }
 }

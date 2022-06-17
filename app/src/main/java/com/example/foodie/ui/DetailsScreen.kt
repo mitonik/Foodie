@@ -6,7 +6,6 @@ import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.foundation.layout.padding
 import androidx.compose.material.icons.Icons
-import androidx.compose.material.icons.outlined.ArrowBack
 import androidx.compose.material.icons.outlined.Favorite
 import androidx.compose.material.icons.outlined.FavoriteBorder
 import androidx.compose.material3.*
@@ -22,22 +21,22 @@ import com.example.foodie.theme.FoodieTheme
 @ExperimentalMaterial3Api
 @Composable
 fun DetailsScreen(
-    title: String,
-    description: String,
-    isFavourite: Boolean,
+    id: Int,
+    name: String?,
+    description: String?,
+    isFavourite: Boolean?,
 ) {
     Scaffold(
         topBar = {
             SmallTopAppBar(
-                navigationIcon = {
-                    IconButton(onClick = { /* TODO */ }) {
-                        Icon(Icons.Outlined.ArrowBack, null)
+                title = {
+                    if (name != null) {
+                        Text("$name (${id})")
                     }
                 },
-                title = { Text(title) },
                 actions = {
                     IconButton(onClick = { /* TODO */ }) {
-                        if (isFavourite) {
+                        if (isFavourite == true) {
                             Icon(Icons.Outlined.Favorite, null)
                         } else {
                             Icon(Icons.Outlined.FavoriteBorder, null)
@@ -55,7 +54,9 @@ fun DetailsScreen(
                     Modifier.fillMaxWidth(),
                     contentScale = ContentScale.Crop
                 )
-                Text(description, Modifier.padding(10.dp))
+                if (description != null) {
+                    Text(description, Modifier.padding(10.dp))
+                }
             }
         }
     }
@@ -69,6 +70,7 @@ fun DetailsScreen(
 fun DetailsScreenPreview() {
     FoodieTheme {
         DetailsScreen(
+            0,
             "Bacon Deviled Egg Recipes",
             "Find irresistibly delicious recipes for bacon deviled eggs to serve at your next get-together.",
             true

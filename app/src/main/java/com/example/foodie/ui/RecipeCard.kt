@@ -13,16 +13,18 @@ import androidx.compose.ui.unit.dp
 
 @ExperimentalMaterial3Api
 @Composable
-fun RecipeCard(onClick: () -> Unit, text: String) {
+fun RecipeCard(onClick: () -> Unit, text: String?) {
     ElevatedCard(onClick) {
-        Text(
-            text,
-            Modifier
-                .padding(16.dp)
-                .fillMaxWidth(),
-            overflow = TextOverflow.Ellipsis,
-            maxLines = 1
-        )
+        if (text != null) {
+            Text(
+                text,
+                Modifier
+                    .padding(16.dp)
+                    .fillMaxWidth(),
+                overflow = TextOverflow.Ellipsis,
+                maxLines = 1
+            )
+        }
     }
 }
 
