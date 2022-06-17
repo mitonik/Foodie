@@ -46,7 +46,7 @@ fun RecipeScreen(navController: NavController) {
             ) {
                 items(recipes) { recipe ->
                     ElevatedCard(onClick = {
-                        navController.navigate("${Screen.DetailsScreen.route}/${recipe.id}")
+                        navController.navigate("details_screen/${recipe.id}")
                     }) {
                         if (recipe.name != null) {
                             Text(
