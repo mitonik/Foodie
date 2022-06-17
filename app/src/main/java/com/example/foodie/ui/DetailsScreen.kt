@@ -10,36 +10,52 @@ import androidx.compose.material.icons.outlined.Favorite
 import androidx.compose.material.icons.outlined.FavoriteBorder
 import androidx.compose.material3.*
 import androidx.compose.runtime.Composable
+import androidx.compose.runtime.livedata.observeAsState
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.layout.ContentScale
 import androidx.compose.ui.res.painterResource
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
+import androidx.lifecycle.asLiveData
 import com.example.foodie.R
+import com.example.foodie.data.Graph
 import com.example.foodie.theme.FoodieTheme
+import kotlinx.coroutines.runBlocking
+
 
 @ExperimentalMaterial3Api
 @Composable
 fun DetailsScreen(
     id: Int,
-    name: String?,
-    description: String?,
-    isFavourite: Boolean?,
 ) {
+    val recipe = Graph.recipeStore.loadRecipeById(id).asLiveData().observeAsState().value
     Scaffold(
         topBar = {
             SmallTopAppBar(
                 title = {
-                    if (name != null) {
-                        Text("$name (${id})")
+                    if (recipe != null) {
+                        Text("${recipe.name} (${recipe.id})")
                     }
                 },
                 actions = {
-                    IconButton(onClick = { /* TODO */ }) {
-                        if (isFavourite == true) {
-                            Icon(Icons.Outlined.Favorite, null)
-                        } else {
-                            Icon(Icons.Outlined.FavoriteBorder, null)
+                    IconButton(onClick = {
+                        runBlocking {
+                            if (recipe?.name != null && recipe.description != null && recipe.isFavourite != null) {
+                                Graph.recipeStore.updateRecipes(
+                                    recipe.id,
+                                    recipe.name,
+                                    recipe.description,
+                                    !recipe.isFavourite
+                                )
+                            }
+                        }
+                    }) {
+                        if (recipe != null) {
+                            if (recipe.isFavourite == true) {
+                                Icon(Icons.Outlined.Favorite, null)
+                            } else {
+                                Icon(Icons.Outlined.FavoriteBorder, null)
+                            }
                         }
                     }
                 }
@@ -54,8 +70,8 @@ fun DetailsScreen(
                     Modifier.fillMaxWidth(),
                     contentScale = ContentScale.Crop
                 )
-                if (description != null) {
-                    Text(description, Modifier.padding(10.dp))
+                if (recipe != null) {
+                    recipe.description?.let { it1 -> Text(it1, Modifier.padding(10.dp)) }
                 }
             }
         }
@@ -71,9 +87,6 @@ fun DetailsScreenPreview() {
     FoodieTheme {
         DetailsScreen(
             0,
-            "Bacon Deviled Egg Recipes",
-            "Find irresistibly delicious recipes for bacon deviled eggs to serve at your next get-together.",
-            true
         )
     }
 }

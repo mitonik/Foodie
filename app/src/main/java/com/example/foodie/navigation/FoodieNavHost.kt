@@ -27,17 +27,11 @@ fun FoodieNavHost(
         composable(Screen.SettingsScreen.route) { SettingsScreen() }
         composable(
             Screen.DetailsScreen.route, listOf(
-                navArgument("id") { type = NavType.IntType },
-                navArgument("title") { type = NavType.StringType },
-                navArgument("description") { type = NavType.StringType },
-                navArgument("isFavourite") { type = NavType.BoolType })
+                navArgument("id") { type = NavType.IntType })
         ) {
             it.arguments?.getInt("id")?.let { id ->
                 DetailsScreen(
-                    id,
-                    it.arguments?.getString("title").toString(),
-                    it.arguments?.getString("description").toString(),
-                    it.arguments?.getBoolean("isFavourite"),
+                    id
                 )
             }
         }

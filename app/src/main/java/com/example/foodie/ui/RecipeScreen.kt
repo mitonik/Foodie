@@ -48,7 +48,7 @@ fun RecipeScreen(navController: NavController) {
             ) {
                 items(recipes) { recipe ->
                     RecipeCard(
-                        onClick = { navController.navigate("details_screen/${recipe.id}/${recipe.name}/${recipe.description}/${recipe.isFavourite}") },
+                        onClick = { navController.navigate("details_screen/${recipe.id}") },
                         text = recipe.name
                     )
                 }
