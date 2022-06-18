@@ -16,14 +16,6 @@ CREATE TABLE recipe (
     PRIMARY KEY (recipeId)
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8;
 
-INSERT INTO recipe VALUES
-  ( 1, 'Makaron z mozzarellą w sosie pomidorowo-śmietanowym', 28, 19, 65, 544, 0, 
-    '1. Cebulę pokrój na drobną kostkę. Makaron ugotuj zgodnie z instrukcją na opakowaniu. 
-     2. Rozgrzej oliwę z oliwek na patelni i podsmaż cebulę, przez około 3-4 minuty. 
-     3. Następnie dodaj przecier pomidorowy, koncentrat pomidorowy i dodaj śmietanę. 
-     4. Dodaj do całości ugotowany makaron i dokładnie wymieszaj. Następnie dodaj mozzarellę. Gotuj całość około 5 minut.  
-     5. Na koniec dodaj listki bazylii.', 'test');
-
 CREATE TABLE ingredient (
   ingredientId int(10) unsigned NOT NULL AUTO_INCREMENT,
   name         varchar(255) NOT NULL,
@@ -31,6 +23,23 @@ CREATE TABLE ingredient (
   PRIMARY KEY (ingredientId)
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8;
 
+CREATE TABLE relation (
+  ingredient_id int(10) unsigned,
+  recipe_id     int(10) unsigned,
+  quantity      varchar(100) NULL,
+  PRIMARY KEY (ingredient_id, recipe_id),
+  FOREIGN KEY (ingredient_id) REFERENCES ingredient(ingredientId) ON UPDATE CASCADE,
+  FOREIGN KEY (recipe_id) REFERENCES recipe(recipeId) ON UPDATE CASCADE
+) ENGINE=InnoDB DEFAULT CHARSET=utf8;
+
+INSERT INTO recipe VALUES
+  ( 1, 'Makaron z mozzarellą w sosie pomidorowo-śmietanowym', 28, 19, 65, 544, 0, 
+    '1. Cebulę pokrój na drobną kostkę. Makaron ugotuj zgodnie z instrukcją na opakowaniu. 
+     2. Rozgrzej oliwę z oliwek na patelni i podsmaż cebulę, przez około 3-4 minuty. 
+     3. Następnie dodaj przecier pomidorowy, koncentrat pomidorowy i dodaj śmietanę. 
+     4. Dodaj do całości ugotowany makaron i dokładnie wymieszaj. Następnie dodaj mozzarellę. Gotuj całość około 5 minut.  
+     5. Na koniec dodaj listki bazylii.', 'test');
+     
 INSERT INTO ingredient VALUES
   ( 1, 'makaron', 0),
   ( 2, 'mozzarella light', 0),
@@ -45,15 +54,6 @@ INSERT INTO ingredient VALUES
   ( 11, 'sól', 1),
   ( 12, 'pieprz czarny mielony', 1),
   ( 13, 'świeża bazylia', 1);
-
-CREATE TABLE relation (
-  ingredient_id int(10) unsigned,
-  recipe_id     int(10) unsigned,
-  quantity      varchar(100) NULL,
-  PRIMARY KEY (ingredient_id, recipe_id),
-  FOREIGN KEY (ingredient_id) REFERENCES ingredient(ingredientId) ON UPDATE CASCADE,
-  FOREIGN KEY (recipe_id) REFERENCES recipe(recipeId) ON UPDATE CASCADE
-) ENGINE=InnoDB DEFAULT CHARSET=utf8;
 
 INSERT INTO relation VALUES
   ( 1, 1, '140g'),
