@@ -15,7 +15,7 @@ import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
 import com.example.foodie.R
 import com.example.foodie.data.Graph
-import com.example.foodie.db.Recipe
+import com.example.foodie.db.model.Recipe
 import com.example.foodie.theme.FoodieTheme
 import kotlinx.coroutines.runBlocking
 

@@ -1,7 +1,7 @@
-package com.example.foodie.db
+package com.example.foodie.db.dao
 
-import androidx.lifecycle.LiveData
 import androidx.room.*
+import com.example.foodie.db.model.Recipe
 import kotlinx.coroutines.flow.Flow
 
 @Dao
@@ -25,11 +25,7 @@ interface RecipeDao {
     suspend fun delete(recipe: Recipe)
 }
 
-@Dao
-interface RecipeIngredientDao {
-    @Query("SELECT * FROM Recipe")
-    fun getRecipeWithIngredients(): LiveData<List<RecipeWithIngredients>>
 
-    @Query("SELECT * FROM Ingredient")
-    fun getIngredientWithRecipes(): LiveData<List<IngredientWithRecipes>>
-}
+
+
+

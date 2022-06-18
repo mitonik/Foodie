@@ -21,7 +21,7 @@ import androidx.lifecycle.asLiveData
 import androidx.navigation.NavController
 import com.example.foodie.R
 import com.example.foodie.data.Graph
-import com.example.foodie.db.Recipe
+import com.example.foodie.db.model.Recipe
 import com.example.foodie.navigation.Screen
 
 @ExperimentalMaterial3Api
