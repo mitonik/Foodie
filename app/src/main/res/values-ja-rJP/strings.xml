@@ -8,4 +8,13 @@
     <string name="edit_recipe_name">レシピ名</string>
     <string name="edit_recipe_description">説明</string>
     <string name="dark_theme">暗いテーマ</string>
+    <string name="edit_recipe_proteins">タンパク質 [g]</string>
+    <string name="recipe_proteins">タンパク質</string>
+    <string name="edit_recipe_fats">脂肪 [g]</string>
+    <string name="recipe_fats">脂肪</string>
+    <string name="edit_recipe_carbons">カーボン [g]</string>
+    <string name="recipe_carbons">カーボン</string>
+    <string name="edit_recipe_calories">カロリー [kcal]</string>
+    <string name="recipe_calories">カロリー</string>
+    <string name="add_image">画像を追加</string>
 </resources>

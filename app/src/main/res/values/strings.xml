@@ -6,15 +6,14 @@
     <string name="add">Add</string>
     <string name="edit">Edit</string>
     <string name="edit_recipe_name">Recipe Name</string>
-    <string name="edit_recipe_proteins" translatable="false">Proteins [g]</string>
-    <string name="recipe_proteins" translatable="false">P: </string>
-    <string name="edit_recipe_fats" translatable="false">Fats [g]</string>
-    <string name="recipe_fats" translatable="false">F: </string>
-    <string name="edit_recipe_carbons" translatable="false">Carbons [g]</string>
-    <string name="recipe_carbons" translatable="false">C: </string>
-    <string name="edit_recipe_calories" translatable="false">Calories [kcal]</string>
-    <string name="recipe_calories" translatable="false">Cal: </string>
-    <string name="recipe_prepare" translatable="false">Preparing: </string>
+    <string name="edit_recipe_proteins">Proteins [g]</string>
+    <string name="recipe_proteins">Proteins</string>
+    <string name="edit_recipe_fats">Fats [g]</string>
+    <string name="recipe_fats">Fats</string>
+    <string name="edit_recipe_carbons">Carbons [g]</string>
+    <string name="recipe_carbons">Carbons</string>
+    <string name="edit_recipe_calories">Calories [kcal]</string>
+    <string name="recipe_calories">Calories</string>
     <string name="edit_recipe_description">Description</string>
     <string name="dark_theme">Dark theme</string>
     <string name="add_image">Add image</string>

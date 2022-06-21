@@ -7,15 +7,14 @@
     <string name="edit">Edytuj</string>
     <string name="edit_recipe_description">Opis</string>
     <string name="edit_recipe_name">Nazwa przepisu</string>
-    <string name="edit_recipe_proteins" translatable="false">Białko [g]</string>
-    <string name="edit_recipe_fats" translatable="false">Tłuszcze [g]</string>
-    <string name="edit_recipe_carbons" translatable="false">Węglowodany [g]</string>
-    <string name="edit_recipe_calories" translatable="false">Kalorie [kcal]</string>
+    <string name="edit_recipe_proteins">Białko [g]</string>
+    <string name="edit_recipe_fats">Tłuszcze [g]</string>
+    <string name="edit_recipe_carbons">Węglowodany [g]</string>
+    <string name="edit_recipe_calories">Kalorie [kcal]</string>
     <string name="dark_theme">Tryb ciemny</string>
     <string name="add_image">Dodaj zdjęcie</string>
-    <string name="recipe_proteins" translatable="false">B: </string>
-    <string name="recipe_fats" translatable="false">T: </string>
-    <string name="recipe_carbons" translatable="false">W: </string>
-    <string name="recipe_calories" translatable="false">Kal: </string>
-    <string name="recipe_prepare" translatable="false">Przygotowanie: </string>
+    <string name="recipe_proteins">Białko</string>
+    <string name="recipe_fats">Tłuszcze</string>
+    <string name="recipe_carbons">Węglowodany</string>
+    <string name="recipe_calories">Kalorie</string>
 </resources>
