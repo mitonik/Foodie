@@ -1,28 +1,27 @@
+@file:OptIn(ExperimentalCoilApi::class)
+
 package com.example.foodie.ui
 
 import android.annotation.SuppressLint
 import android.content.Context
-import android.graphics.Bitmap
-import android.graphics.ImageDecoder
 import android.net.Uri
 import android.provider.OpenableColumns
-import android.util.Log
 import androidx.activity.compose.rememberLauncherForActivityResult
 import androidx.activity.result.contract.ActivityResultContracts
 import androidx.compose.foundation.Image
 import androidx.compose.foundation.layout.*
 import androidx.compose.foundation.rememberScrollState
+import androidx.compose.foundation.shape.RoundedCornerShape
 import androidx.compose.foundation.text.KeyboardOptions
 import androidx.compose.foundation.verticalScroll
 import androidx.compose.material3.*
-import androidx.compose.runtime.*
+import androidx.compose.runtime.Composable
+import androidx.compose.runtime.mutableStateOf
+import androidx.compose.runtime.remember
 import androidx.compose.runtime.saveable.rememberSaveable
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
-import androidx.compose.ui.graphics.asImageBitmap
 import androidx.compose.ui.layout.ContentScale
-import androidx.compose.ui.platform.LocalContext
-import androidx.compose.ui.res.painterResource
 import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.text.input.KeyboardType
 import androidx.compose.ui.tooling.preview.Preview
@@ -49,15 +48,6 @@ fun AddScreen(onAdd: () -> Unit
     val isFavourite = remember { mutableStateOf(false) }
     val imagePath = remember { mutableStateOf("") }
 
-    var imageUri by remember { mutableStateOf<Uri?>(null) }
-    val context = LocalContext.current
-    val bitmap = remember { mutableStateOf<Bitmap?>(null) }
-    val launcher = rememberLauncherForActivityResult(
-        contract = ActivityResultContracts.GetContent()) { uri: Uri? ->
-        imageUri = uri
-    }
-
-
     Scaffold {
         Surface(Modifier.padding(it)) {
             Column(
@@ -66,45 +56,43 @@ fun AddScreen(onAdd: () -> Unit
                     .padding(20.dp),
                 verticalArrangement = Arrangement.spacedBy(20.dp)
             ) {
-
-                Box(contentAlignment = Alignment.TopEnd) {
-                    imageUri?.let {
-                        val source = ImageDecoder.createSource(context.contentResolver, it)
-                        bitmap.value = ImageDecoder.decodeBitmap(source)
-                        val filename = getFileNameFromUri(context, imageUri!!)
-                        imagePath.value = filename.toString()
-                        //imageUri = Uri.parse(imagePath.value)
-                        Log.d("bitmap from add: ", bitmap.value.toString())
-                    }
-
-                    if(imageUri != null) {
-
-                        bitmap.value?.let {
-                            bitmap ->
-                            Image(
-                                bitmap = bitmap.asImageBitmap(),
-                                contentDescription = null,
-                                Modifier.fillMaxWidth(),
-                                contentScale = ContentScale.Crop
-                            )
-                        }
+                val imageUri = rememberSaveable { mutableStateOf("") }
+                val painter = rememberImagePainter(
+                    if (imageUri.value.isEmpty()) {
+                        R.drawable.ic_launcher_background
                     }
                     else {
-                        Image(
-                            painterResource(R.drawable.ic_launcher_background),
-                            contentDescription = null,
-                            Modifier.fillMaxWidth(),
-                            contentScale = ContentScale.Crop
-                        )
+                        imageUri.value
                     }
+                )
 
-                    Button(onClick = {
-                        launcher.launch("image/*")
-
-                    }) {
-                        Text(text = "Pick Image")
-                    }
+                val launcher = rememberLauncherForActivityResult(
+                    contract = ActivityResultContracts.GetContent()
+                ) { uri: Uri? ->
+                    uri?.let { imageUri.value = it.toString() }
                 }
+
+                Button(onClick = {
+                    launcher.launch("image/*")
+                }) {
+                    Text(text = stringResource(R.string.add_image))
+                }
+
+                Card(
+                    shape = RoundedCornerShape(3.dp),
+                    modifier = Modifier
+                        .size(360.dp)
+                ) {
+                    Image(
+                        painter = painter,
+                        contentDescription = null,
+                        modifier = Modifier
+                            .fillMaxSize(),
+                        contentScale = ContentScale.Crop
+                    )
+                }
+
+                imagePath.value = imageUri.value
 
                 //NAME
                 TextField(
@@ -166,7 +154,7 @@ fun AddScreen(onAdd: () -> Unit
                 )
                 //IS FAV?
                 Row(verticalAlignment = Alignment.CenterVertically) {
-                    Text("Favourite")
+                    Text(stringResource(R.string.favourites))
                     Spacer(Modifier.weight(1f, true))
                     Switch(checked = isFavourite.value, onCheckedChange = { value ->
                         isFavourite.value = value

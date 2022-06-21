@@ -6,6 +6,7 @@ import androidx.compose.foundation.lazy.grid.GridCells
 import androidx.compose.foundation.lazy.grid.LazyVerticalGrid
 import androidx.compose.foundation.lazy.grid.items
 import androidx.compose.foundation.lazy.grid.rememberLazyGridState
+import androidx.compose.foundation.shape.RoundedCornerShape
 import androidx.compose.material.icons.Icons
 import androidx.compose.material.icons.filled.Add
 import androidx.compose.material3.*
@@ -13,12 +14,11 @@ import androidx.compose.runtime.Composable
 import androidx.compose.runtime.livedata.observeAsState
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.layout.ContentScale
-import androidx.compose.ui.res.painterResource
 import androidx.compose.ui.res.stringResource
-import androidx.compose.ui.text.style.TextOverflow
 import androidx.compose.ui.unit.dp
 import androidx.lifecycle.asLiveData
 import androidx.navigation.NavController
+import coil.compose.rememberImagePainter
 import com.example.foodie.R
 import com.example.foodie.data.Graph
 import com.example.foodie.db.model.Recipe
@@ -29,14 +29,15 @@ import com.example.foodie.navigation.Screen
 fun RecipeScreen(navController: NavController) {
     val recipes: List<Recipe> =
         Graph.recipeStore.getAll().asLiveData().observeAsState(listOf()).value
+
     Scaffold(floatingActionButton = {
         ExtendedFloatingActionButton(
             text = { Text(stringResource(R.string.add)) },
             icon = { Icon(Icons.Filled.Add, contentDescription = null) },
             onClick = { navController.navigate(Screen.AddScreen.route) },
             shape = MaterialTheme.shapes.medium
-        )
-    }) {
+        ) }) {
+
         Surface(modifier = Modifier.padding(it)) {
             LazyVerticalGrid(
                 GridCells.Fixed(2),
@@ -48,26 +49,29 @@ fun RecipeScreen(navController: NavController) {
                 Arrangement.spacedBy(10.dp)
             ) {
                 items(recipes) { recipe ->
-                    ElevatedCard(onClick = {
-                        navController.navigate("details_screen/${recipe.recipeId}")
-                    }) {
-                        Image(
-                            painterResource(R.drawable.ic_launcher_background),
-                            contentDescription = null,
-                            Modifier.fillMaxSize(),
-                            contentScale = ContentScale.Crop
-                        )
 
-                        if (recipe.name != null) {
+                    Card(
+                        shape = RoundedCornerShape(3.dp),
+                        modifier = Modifier
+                            .size(200.dp),
+                        onClick = { navController.navigate("details_screen/${recipe.recipeId}") }) {
+
+                        Row( modifier = Modifier
+                            .fillMaxWidth())  {
                             Text(
                                 recipe.name,
                                 Modifier
                                     .padding(16.dp)
-                                    .fillMaxWidth(),
-                                overflow = TextOverflow.Ellipsis,
-                                maxLines = 1
                             )
                         }
+
+                        Image(
+                            painter = rememberImagePainter(recipe.imagePath),
+                            contentDescription = null,
+                            modifier = Modifier
+                                .fillMaxSize(),
+                            contentScale = ContentScale.Crop)
+
                     }
                 }
             }
