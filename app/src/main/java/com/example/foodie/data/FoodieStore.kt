@@ -1,7 +1,7 @@
 package com.example.foodie.data
 
-import com.example.foodie.db.Recipe
-import com.example.foodie.db.RecipeDao
+import com.example.foodie.db.model.Recipe
+import com.example.foodie.db.dao.RecipeDao
 import kotlinx.coroutines.flow.Flow
 
 class RecipeStore(

@@ -1,6 +1,7 @@
-package com.example.foodie.db
+package com.example.foodie.db.dao
 
 import androidx.room.*
+import com.example.foodie.db.model.Recipe
 import kotlinx.coroutines.flow.Flow
 
 @Dao
@@ -11,7 +12,7 @@ interface RecipeDao {
     @Query("SELECT * FROM recipe WHERE isFavourite = 1")
     fun getFavourite(): Flow<List<Recipe>>
 
-    @Query("SELECT * FROM recipe WHERE id = :id")
+    @Query("SELECT * FROM recipe WHERE recipeId = :id")
     fun loadRecipeById(id: Int): Flow<Recipe>
 
     @Insert(onConflict = OnConflictStrategy.REPLACE)
@@ -23,3 +24,8 @@ interface RecipeDao {
     @Delete
     suspend fun delete(recipe: Recipe)
 }
+
+
+
+
+
