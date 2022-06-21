@@ -11,8 +11,8 @@ import androidx.compose.material3.*
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.livedata.observeAsState
 import androidx.compose.ui.Modifier
+import androidx.compose.ui.draw.clip
 import androidx.compose.ui.layout.ContentScale
-import androidx.compose.ui.platform.LocalContext
 import androidx.compose.ui.text.style.TextOverflow
 import androidx.compose.ui.unit.dp
 import androidx.lifecycle.asLiveData
@@ -22,11 +22,10 @@ import coil.compose.rememberImagePainter
 import com.example.foodie.data.Graph
 import com.example.foodie.db.model.Recipe
 
-@OptIn(ExperimentalCoilApi::class)
+@ExperimentalCoilApi
 @ExperimentalMaterial3Api
 @Composable
 fun FavouriteScreen(navController: NavController) {
-    val context = LocalContext.current
     val recipes: List<Recipe> = Graph.recipeStore.getFavourite().asLiveData().observeAsState(listOf()).value
 
     Scaffold {
@@ -37,32 +36,27 @@ fun FavouriteScreen(navController: NavController) {
                 rememberLazyGridState(),
                 PaddingValues(10.dp),
                 false,
-                Arrangement.spacedBy(10.dp),
-                Arrangement.spacedBy(10.dp)
+                Arrangement.spacedBy(8.dp),
+                Arrangement.spacedBy(8.dp)
             ) {
                 items(recipes) { recipe ->
-
                     Card(
-                        shape = RoundedCornerShape(3.dp),
-                        modifier = Modifier
-                            .size(150.dp),
-                        onClick = { navController.navigate("details_screen/${recipe.recipeId}") }) {
-
+                        { navController.navigate("details_screen/${recipe.recipeId}") }
+                    ) {
+                        Image(
+                            rememberImagePainter(recipe.imagePath),
+                            null,
+                            Modifier
+                                .size(200.dp)
+                                .clip(RoundedCornerShape(12.dp)),
+                            contentScale = ContentScale.Crop
+                        )
                         Text(
                             recipe.name,
-                            Modifier
-                                .padding(16.dp)
-                                .fillMaxWidth(),
+                            Modifier.padding(16.dp),
                             overflow = TextOverflow.Ellipsis,
                             maxLines = 1
                         )
-                        Image(
-                            painter = rememberImagePainter(recipe.imagePath),
-                            contentDescription = null,
-                            modifier = Modifier
-                                .fillMaxSize(),
-                            contentScale = ContentScale.Crop)
-
                     }
                 }
             }
