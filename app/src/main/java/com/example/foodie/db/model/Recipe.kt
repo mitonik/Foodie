@@ -7,11 +7,11 @@ import androidx.room.PrimaryKey
 data class Recipe(
     @PrimaryKey(autoGenerate = true) val recipeId: Int,
     val name: String,
-    val proteins: Int?,
-    val fats: Int?,
-    val carbons: Int?,
-    val calories: Int?,
-    val isFavourite: Boolean,
+    val proteins: String?,
+    val fats: String?,
+    val carbons: String?,
+    val calories: String?,
+    val isFavourite: Boolean?,
     val description: String?,
-    val imagepath: String?
+    val imagePath: String?
 )

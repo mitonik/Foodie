@@ -49,14 +49,16 @@ fun RecipeScreen(navController: NavController) {
             ) {
                 items(recipes) { recipe ->
                     ElevatedCard(onClick = {
-                        navController.navigate("details_screen/${recipe.id}")
+                        navController.navigate("details_screen/${recipe.recipeId}")
                     }) {
+
                         Image(
                             painterResource(R.drawable.ic_launcher_background),
                             contentDescription = null,
                             Modifier.fillMaxSize(),
                             contentScale = ContentScale.Crop
                         )
+
                         if (recipe.name != null) {
                             Text(
                                 recipe.name,

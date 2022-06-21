@@ -6,6 +6,10 @@
     <string name="add">Add</string>
     <string name="edit">Edit</string>
     <string name="edit_recipe_name">Recipe Name</string>
+    <string name="edit_recipe_proteins" translatable="false">Proteins</string>
+    <string name="edit_recipe_fats" translatable="false">Fats</string>
+    <string name="edit_recipe_carbons" translatable="false">Carbons</string>
+    <string name="edit_recipe_calories" translatable="false">Calories</string>
     <string name="edit_recipe_description">Description</string>
     <string name="dark_theme">Dark theme</string>
 </resources>
