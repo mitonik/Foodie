@@ -1,5 +1,6 @@
 package com.example.foodie.ui
 
+import android.graphics.Bitmap
 import androidx.compose.foundation.Image
 import androidx.compose.foundation.layout.*
 import androidx.compose.foundation.rememberScrollState
@@ -12,8 +13,11 @@ import androidx.compose.material.icons.outlined.FavoriteBorder
 import androidx.compose.material3.*
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.livedata.observeAsState
+import androidx.compose.runtime.mutableStateOf
+import androidx.compose.runtime.remember
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.layout.ContentScale
+import androidx.compose.ui.platform.LocalContext
 import androidx.compose.ui.res.painterResource
 import androidx.compose.ui.text.TextStyle
 import androidx.compose.ui.text.font.FontWeight
@@ -34,6 +38,10 @@ fun DetailsScreen(
     onDelete: () -> Unit
 ) {
     val recipe = Graph.recipeStore.loadRecipeById(id).asLiveData().observeAsState().value
+
+    val context = LocalContext.current
+    val bitmap = remember { mutableStateOf<Bitmap?>(null) }
+
     Scaffold(
         modifier = Modifier.fillMaxSize(),
         topBar = {
@@ -91,6 +99,7 @@ fun DetailsScreen(
         Surface(Modifier.padding(it)) {
             Column(modifier = Modifier
                 .verticalScroll(rememberScrollState())) {
+
                 Image(
                     painterResource(R.drawable.ic_launcher_background),
                     null,

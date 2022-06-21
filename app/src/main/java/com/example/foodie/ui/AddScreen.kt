@@ -1,8 +1,12 @@
 package com.example.foodie.ui
 
+import android.annotation.SuppressLint
+import android.content.Context
 import android.graphics.Bitmap
 import android.graphics.ImageDecoder
 import android.net.Uri
+import android.provider.OpenableColumns
+import android.util.Log
 import androidx.activity.compose.rememberLauncherForActivityResult
 import androidx.activity.result.contract.ActivityResultContracts
 import androidx.compose.foundation.Image
@@ -12,6 +16,7 @@ import androidx.compose.foundation.text.KeyboardOptions
 import androidx.compose.foundation.verticalScroll
 import androidx.compose.material3.*
 import androidx.compose.runtime.*
+import androidx.compose.runtime.saveable.rememberSaveable
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.graphics.asImageBitmap
@@ -22,11 +27,14 @@ import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.text.input.KeyboardType
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
+import coil.annotation.ExperimentalCoilApi
+import coil.compose.rememberImagePainter
 import com.example.foodie.R
 import com.example.foodie.data.Graph
 import com.example.foodie.db.model.Recipe
 import com.example.foodie.theme.FoodieTheme
 import kotlinx.coroutines.runBlocking
+
 
 @ExperimentalMaterial3Api
 @Composable
@@ -42,12 +50,13 @@ fun AddScreen(onAdd: () -> Unit
     val imagePath = remember { mutableStateOf("") }
 
     var imageUri by remember { mutableStateOf<Uri?>(null) }
-    val launcher =
-        rememberLauncherForActivityResult(contract = ActivityResultContracts.GetContent()) {
-                uri: Uri? -> imageUri = uri
-        }
     val context = LocalContext.current
     val bitmap = remember { mutableStateOf<Bitmap?>(null) }
+    val launcher = rememberLauncherForActivityResult(
+        contract = ActivityResultContracts.GetContent()) { uri: Uri? ->
+        imageUri = uri
+    }
+
 
     Scaffold {
         Surface(Modifier.padding(it)) {
@@ -59,16 +68,18 @@ fun AddScreen(onAdd: () -> Unit
             ) {
 
                 Box(contentAlignment = Alignment.TopEnd) {
-                    
-                    imageUri?.let { 
+                    imageUri?.let {
                         val source = ImageDecoder.createSource(context.contentResolver, it)
                         bitmap.value = ImageDecoder.decodeBitmap(source)
+                        val filename = getFileNameFromUri(context, imageUri!!)
+                        imagePath.value = filename.toString()
+                        //imageUri = Uri.parse(imagePath.value)
+                        Log.d("bitmap from add: ", bitmap.value.toString())
                     }
 
-                    imagePath.value = imageUri.toString()
-
                     if(imageUri != null) {
-                        bitmap.value?.let { 
+
+                        bitmap.value?.let {
                             bitmap ->
                             Image(
                                 bitmap = bitmap.asImageBitmap(),
@@ -195,4 +206,31 @@ fun AddScreenPreview() {
     FoodieTheme {
         AddScreen {}
     }
+}
+
+@SuppressLint("Range")
+fun getFileNameFromUri(context: Context, uri: Uri): String? {
+    val fileName: String?
+    val cursor = context.contentResolver.query(uri, null, null, null, null)
+    cursor?.moveToFirst()
+    fileName = cursor?.getString(cursor.getColumnIndex(OpenableColumns.DISPLAY_NAME))
+    cursor?.close()
+    return fileName
+}
+
+@OptIn(ExperimentalCoilApi::class)
+@Composable
+fun FoodPicture() {
+    val imageUri = rememberSaveable { mutableStateOf("") }
+    val painter = rememberImagePainter(
+        imageUri.value.ifEmpty { R.drawable.ic_launcher_background }
+    )
+
+    Image(
+        painter = painter,
+        contentDescription = null,
+        Modifier.fillMaxWidth(),
+        contentScale = ContentScale.Crop
+    )
+
 }

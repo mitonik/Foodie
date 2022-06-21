@@ -51,7 +51,6 @@ fun RecipeScreen(navController: NavController) {
                     ElevatedCard(onClick = {
                         navController.navigate("details_screen/${recipe.recipeId}")
                     }) {
-
                         Image(
                             painterResource(R.drawable.ic_launcher_background),
                             contentDescription = null,
